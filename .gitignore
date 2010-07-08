@@ -1,0 +1,7 @@
+*.o
+shepherd-build-*
+shepherd/shepherd-build-*
+shepherd/actions/*-build-*
+shepherd/triggers/*-build-*
+shepherd/actions/*.so
+shepherd/triggers/*.so

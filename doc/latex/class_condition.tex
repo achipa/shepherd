@@ -1,0 +1,82 @@
+\hypertarget{class_condition}{
+\section{Condition Class Reference}
+\label{class_condition}\index{Condition@{Condition}}
+}
+QtScript expressions containing triggers.  
+
+
+{\tt \#include $<$condition.h$>$}
+
+\subsection*{Public Slots}
+\begin{CompactItemize}
+\item 
+bool \hyperlink{class_condition_1ed8dccd3394ae01378788f66f072f8f}{evaluate} ()
+\end{CompactItemize}
+\subsection*{Signals}
+\begin{CompactItemize}
+\item 
+void \hyperlink{class_condition_edef85651f9da74dc23c179a2bebcae9}{stateChanged} (bool b)
+\item 
+\hypertarget{class_condition_14c04260861f65c3e6e86d15a54627a3}{
+void \hyperlink{class_condition_14c04260861f65c3e6e86d15a54627a3}{turnedTrue} ()}
+\label{class_condition_14c04260861f65c3e6e86d15a54627a3}
+
+\begin{CompactList}\small\item\em \hyperlink{class_condition}{Condition} evaluation changed and became true. \item\end{CompactList}\item 
+\hypertarget{class_condition_dd46bba9525b877221a90b13238f6c8a}{
+void \hyperlink{class_condition_dd46bba9525b877221a90b13238f6c8a}{turnedFalse} ()}
+\label{class_condition_dd46bba9525b877221a90b13238f6c8a}
+
+\begin{CompactList}\small\item\em \hyperlink{class_condition}{Condition} evaluation changed and became false. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{class_condition_2a631f2e03daa7e001aa2545a1fff149}{
+\hyperlink{class_condition_2a631f2e03daa7e001aa2545a1fff149}{Condition} (QObject $\ast$parent=0, QScriptEngine $\ast$qse=0)}
+\label{class_condition_2a631f2e03daa7e001aa2545a1fff149}
+
+\begin{CompactList}\small\item\em \hyperlink{class_condition}{Condition} object constructor. \item\end{CompactList}\item 
+\hypertarget{class_condition_e37e6db989d294d32e562fc10dbbe8d8}{
+bool \hyperlink{class_condition_e37e6db989d294d32e562fc10dbbe8d8}{state} ()}
+\label{class_condition_e37e6db989d294d32e562fc10dbbe8d8}
+
+\begin{CompactList}\small\item\em return current evaluated expression state \item\end{CompactList}\item 
+\hypertarget{class_condition_5093a91c0282a10852c32381ecf45835}{
+void \hyperlink{class_condition_5093a91c0282a10852c32381ecf45835}{setExpression} (QString e)}
+\label{class_condition_5093a91c0282a10852c32381ecf45835}
+
+\begin{CompactList}\small\item\em set \hyperlink{class_condition}{Condition} expression containing the \hyperlink{interface_trigger}{Trigger} objects \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+QtScript expressions containing triggers. 
+
+If the expressions evaluates to true, the condition is fulfilled, usually signalling the start of a \hyperlink{class_task}{Task}. The expression itself is a simple string, and it contains function calls that hook into the respective \hyperlink{interface_trigger}{Trigger} objects 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_condition_1ed8dccd3394ae01378788f66f072f8f}{
+\index{Condition@{Condition}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!Condition@{Condition}}
+\subsubsection[{evaluate}]{\setlength{\rightskip}{0pt plus 5cm}bool Condition::evaluate ()\hspace{0.3cm}{\tt  \mbox{[}slot\mbox{]}}}}
+\label{class_condition_1ed8dccd3394ae01378788f66f072f8f}
+
+
+Force condition evaluation. This slot is usually called from the \hyperlink{interface_trigger}{Trigger} object when it itself changes state and wishes to propagate the changes \hypertarget{class_condition_edef85651f9da74dc23c179a2bebcae9}{
+\index{Condition@{Condition}!stateChanged@{stateChanged}}
+\index{stateChanged@{stateChanged}!Condition@{Condition}}
+\subsubsection[{stateChanged}]{\setlength{\rightskip}{0pt plus 5cm}void Condition::stateChanged (bool {\em b})\hspace{0.3cm}{\tt  \mbox{[}signal\mbox{]}}}}
+\label{class_condition_edef85651f9da74dc23c179a2bebcae9}
+
+
+emitted when the condition evaluation changes state, either going from true to false or the other way around
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em b}]the new state \end{description}
+\end{Desc}
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+/scratchbox/users/maemo/home/maemo/shepherd/shepherd/\hyperlink{condition_8h}{condition.h}\item 
+/scratchbox/users/maemo/home/maemo/shepherd/shepherd/\hyperlink{condition_8cpp}{condition.cpp}\end{CompactItemize}

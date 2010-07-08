@@ -1,0 +1,3 @@
+shepherd/*.desktop usr/share/applications/hildon
+shepherd/*.png usr/share/icons/hicolor/26x26/apps
+

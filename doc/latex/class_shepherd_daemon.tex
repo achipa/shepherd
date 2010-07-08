@@ -1,0 +1,66 @@
+\hypertarget{class_shepherd_daemon}{
+\section{ShepherdDaemon Class Reference}
+\label{class_shepherd_daemon}\index{ShepherdDaemon@{ShepherdDaemon}}
+}
+Base daemon class.  
+
+
+{\tt \#include $<$shepherddaemon.h$>$}
+
+\subsection*{Public Slots}
+\begin{CompactItemize}
+\item 
+void \hyperlink{class_shepherd_daemon_2738c4b68ae3038188c87d7c6512e62f}{loadConfig} ()
+\begin{CompactList}\small\item\em (re)load job settings from config files. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{class_shepherd_daemon_c96e5fdb94d7188fea8eb02671aa22ec}{
+\textbf{ShepherdDaemon} (QObject $\ast$parent=0)}
+\label{class_shepherd_daemon_c96e5fdb94d7188fea8eb02671aa22ec}
+
+\item 
+void \hyperlink{class_shepherd_daemon_39a63b10905db37058532a2571b001be}{loadPlugins} ()
+\item 
+\hyperlink{class_shepherd_daemon_da294049c1e4b13e4b6ab8e0e4d7acb3}{$\sim$ShepherdDaemon} ()
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Base daemon class. 
+
+The ShepherDaemon is the base daemon class. It's main tasks are loading and maintaining the jobs based on the config files. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_shepherd_daemon_da294049c1e4b13e4b6ab8e0e4d7acb3}{
+\index{ShepherdDaemon@{ShepherdDaemon}!$\sim$ShepherdDaemon@{$\sim$ShepherdDaemon}}
+\index{$\sim$ShepherdDaemon@{$\sim$ShepherdDaemon}!ShepherdDaemon@{ShepherdDaemon}}
+\subsubsection[{$\sim$ShepherdDaemon}]{\setlength{\rightskip}{0pt plus 5cm}ShepherdDaemon::$\sim$ShepherdDaemon ()}}
+\label{class_shepherd_daemon_da294049c1e4b13e4b6ab8e0e4d7acb3}
+
+
+Destroys the \hyperlink{class_shepherd_daemon}{ShepherdDaemon} object 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_shepherd_daemon_2738c4b68ae3038188c87d7c6512e62f}{
+\index{ShepherdDaemon@{ShepherdDaemon}!loadConfig@{loadConfig}}
+\index{loadConfig@{loadConfig}!ShepherdDaemon@{ShepherdDaemon}}
+\subsubsection[{loadConfig}]{\setlength{\rightskip}{0pt plus 5cm}void ShepherdDaemon::loadConfig ()\hspace{0.3cm}{\tt  \mbox{[}slot\mbox{]}}}}
+\label{class_shepherd_daemon_2738c4b68ae3038188c87d7c6512e62f}
+
+
+(re)load job settings from config files. 
+
+Used on startup but also when the GUI config editor changes job settings \hypertarget{class_shepherd_daemon_39a63b10905db37058532a2571b001be}{
+\index{ShepherdDaemon@{ShepherdDaemon}!loadPlugins@{loadPlugins}}
+\index{loadPlugins@{loadPlugins}!ShepherdDaemon@{ShepherdDaemon}}
+\subsubsection[{loadPlugins}]{\setlength{\rightskip}{0pt plus 5cm}void ShepherdDaemon::loadPlugins ()}}
+\label{class_shepherd_daemon_39a63b10905db37058532a2571b001be}
+
+
+Load plugins (both triggers and actions) 
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+/scratchbox/users/maemo/home/maemo/shepherd/shepherd/\hyperlink{shepherddaemon_8h}{shepherddaemon.h}\item 
+/scratchbox/users/maemo/home/maemo/shepherd/shepherd/\hyperlink{shepherddaemon_8cpp}{shepherddaemon.cpp}\end{CompactItemize}

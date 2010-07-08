@@ -1,0 +1,33 @@
+\hypertarget{class_input_interface}{
+\section{InputInterface Class Reference}
+\label{class_input_interface}\index{InputInterface@{InputInterface}}
+}
+Plugin-specific data input.  
+
+
+{\tt \#include $<$interfaces.h$>$}
+
+Inherited by BeepActionPlugin, and DummyTriggerPlugin.
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{class_input_interface_360b53fc4f09f786dfb17a721f73bb6d}{
+const QVariant \& \hyperlink{class_input_interface_360b53fc4f09f786dfb17a721f73bb6d}{read} ()}
+\label{class_input_interface_360b53fc4f09f786dfb17a721f73bb6d}
+
+\begin{CompactList}\small\item\em read QVariant via a plugin specific QDialog \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Plugin-specific data input. 
+
+The \hyperlink{class_input_interface}{InputInterface} defines the way for a plugin to input data through a plugin-specific dialog. Both \hyperlink{interface_action}{Action} and Trigger objects can have InputInterfaces. The returned data is a QVariant which can be serialized in order to be saved/loaded
+
+Example Trigger InputInterfaces: A map for a GPS Trigger plugin A clock for an alarm Trigger
+
+Example \hyperlink{interface_action}{Action} InputInterfaces: A profile ID for a profile switcher \hyperlink{interface_action}{Action} plugin A message for a notify \hyperlink{interface_action}{Action} plugin 
+
+The documentation for this class was generated from the following file:\begin{CompactItemize}
+\item 
+/scratchbox/users/maemo/home/maemo/shepherd/shepherd/\hyperlink{interfaces_8h}{interfaces.h}\end{CompactItemize}

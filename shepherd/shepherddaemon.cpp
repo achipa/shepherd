@@ -42,7 +42,6 @@ void ShepherdDaemon::loadPlugins()
 
     foreach (QString plugintype, QStringList() << "triggers" << "actions")
     {
-        pluginsDir.cd("..");
         pluginsDir.cd(plugintype);
 
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
@@ -62,15 +61,16 @@ void ShepherdDaemon::loadPlugins()
                 qWarning() << "FAILED " << plugintype << loader.errorString();
             }
         }
+        pluginsDir.cd("..");
     }
 }
 
 void ShepherdDaemon::loadConfig()
 {
-    delete mainconfig;
+    // delete mainconfig;
     mainconfig = new QSettings("shepherd", "shepherd");
 
-    delete jobconfig;
+    // delete jobconfig;
     jobconfig = new QSettings("shepherd", "jobs");
 
     foreach (QString jobname, jobconfig->childGroups())

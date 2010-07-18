@@ -5,5 +5,6 @@ shepherd/actions/*-build-*
 shepherd/triggers/*-build-*
 shepherd/actions/*.so
 shepherd/triggers/*.so
-shepherd*/Makefile
-shepherd/moc*
+Makefile
+moc*
+.*swp

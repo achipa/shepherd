@@ -22,9 +22,10 @@
 #include <QtCore/QPluginLoader>
 #include <QCoreApplication>
 #include <QDir>
+#include <QLibraryInfo>
 
 ShepherdDaemon::ShepherdDaemon(QObject *parent)
-    : QObject(parent), sengine(new QScriptEngine())
+    : QObject(parent), mainconfig(0), jobconfig(0), sengine(new QScriptEngine())
 {
     qDebug() << "Loading plugins";
     loadPlugins();
@@ -38,17 +39,29 @@ void ShepherdDaemon::loadPlugins()
     QDir pluginsDir;
     QStringList pluginFileNames;
 
+#ifdef QT_DEBUG
+    // I use separate build dirs, so for me the executable is at paths like /home/maemo/shepherd/shepherd-build-desktop/shepherd-daemon...
     pluginsDir = QDir(QCoreApplication::instance()->applicationDirPath());
+    pluginsDir.cdUp();
+    pluginsDir.cd("shepherd");
+#else
+    pluginsDir = QDir(QString(QLibraryInfo::PluginsPath) + QDir::separator() + "shepherd");
+#endif
 
     foreach (QString plugintype, QStringList() << "triggers" << "actions")
     {
-        pluginsDir.cd(plugintype);
+        qDebug() << pluginsDir;
+        if (!pluginsDir.cd(plugintype))
+        {
+            pluginsDir.cdUp();
+            pluginsDir.cd(plugintype);
+        }
 
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+            qDebug() << fileName;
             if (!fileName.endsWith(".so"))
                 continue;
 
-            qDebug() << fileName;
             QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
             QObject *plugin = loader.instance();
             if (plugin) {
@@ -67,10 +80,10 @@ void ShepherdDaemon::loadPlugins()
 
 void ShepherdDaemon::loadConfig()
 {
-    // delete mainconfig;
+    if (mainconfig) delete mainconfig;
     mainconfig = new QSettings("shepherd", "shepherd");
 
-    // delete jobconfig;
+    if (jobconfig) delete jobconfig;
     jobconfig = new QSettings("shepherd", "jobs");
 
     foreach (QString jobname, jobconfig->childGroups())

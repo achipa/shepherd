@@ -57,7 +57,9 @@ class InputInterface
 public:
     virtual ~InputInterface() {}
     //! read QVariant via a plugin specific QDialog
-    const QVariant& read();
+    bool configure();
+    //! return current configuration of the plugin object
+    const QVariant& config();
 };
 
 //! Triggers are inputs that can trigger actions
@@ -69,8 +71,22 @@ class TriggerInterface
 {
 public:
     virtual ~TriggerInterface() {}
-    //! set QVariant (usually read from an InputInterface)
-    virtual void setValue(const QVariant&) =0;
+    /*!
+     * Set the parameter to which the Trigger will compare to. This
+     * can be a QString (like an SSID name), numer (battery charge level),
+     * but also custom data like GPS locations, etc.
+     */
+    virtual void setConfig(const QVariant&) =0; //!< set QVariant (usually read from an InputInterface)
+
+    /*!
+     * emitted when the condition evaluation changes state, either
+     * going from true to false or the other way around
+     *
+     * \param b the new state
+     */
+    virtual void stateChanged(bool b);
+    virtual void turnedTrue();   //!< Condition evaluation changed and became true
+    virtual void turnedFalse();  //!< Condition evaluation changed and became false
 };
 
 
@@ -84,8 +100,12 @@ class ActionInterface
 {
 public:
     virtual ~ActionInterface() {}
-    //! set QVariant (usually read from an InputInterface)
-    virtual void setValue(const QVariant&) =0;
+    /*!
+     * Set the parameter to which the Trigger will compare to. This
+     * can be a QString (like an SSID name), numer (battery charge level),
+     * but also custom data like GPS locations, etc.
+     */
+    virtual void setConfig(const QVariant&) =0; //!< set QVariant (usually read from an InputInterface)
     //! execute action
     virtual bool execute() =0;
 };

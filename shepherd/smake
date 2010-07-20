@@ -1,4 +1,4 @@
 qmake
 make clean
 make
-strip shepherd
+strip shepherd-daemon

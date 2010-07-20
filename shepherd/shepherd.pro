@@ -23,6 +23,8 @@ HEADERS  += shepherddaemon.h \
     condition.h \
     job.h
 
+Debug:DEFINES+=DEBUG
+
 CONFIG += qdbus mobility
 MOBILITY = 
 

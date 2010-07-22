@@ -19,7 +19,7 @@
 
 #include <QtPlugin>
 #include <QtGui/QPixmap>
-
+#include <QVariantMap>
 //! Base info about the plugin
 /*!
  * The InfoInterface defines the way for a plugin to communicate its
@@ -56,10 +56,12 @@ class InputInterface
 {
 public:
     virtual ~InputInterface() {}
-    //! read QVariant via a plugin specific QDialog
-    bool configure();
+    //! configure plugin via a plugin specific QDialog
+    virtual bool configure() = 0;
+    //! configure plugin instance via serialized QString (usually from conf file)
+    virtual bool configure(QString cfg) = 0;
     //! return current configuration of the plugin object
-    const QVariant& config();
+    virtual const QVariantMap& config() = 0;
 };
 
 //! Triggers are inputs that can trigger actions
@@ -76,7 +78,7 @@ public:
      * can be a QString (like an SSID name), numer (battery charge level),
      * but also custom data like GPS locations, etc.
      */
-    virtual void setConfig(const QVariant&) =0; //!< set QVariant (usually read from an InputInterface)
+    virtual void setConfig(const QVariantMap&) =0; //!< set QVariant (usually read from an InputInterface)
 
     /*!
      * emitted when the condition evaluation changes state, either
@@ -84,9 +86,14 @@ public:
      *
      * \param b the new state
      */
-    virtual void stateChanged(bool b);
-    virtual void turnedTrue();   //!< Condition evaluation changed and became true
-    virtual void turnedFalse();  //!< Condition evaluation changed and became false
+    virtual void stateChanged(bool b) = 0;
+    virtual void turnedTrue() = 0;   //!< Condition evaluation changed and became true
+    virtual void turnedFalse() = 0;  //!< Condition evaluation changed and became false
+    /*!
+     * Evaluate current trigger state, returning a true/false result
+     * depending on configuration
+     */
+    virtual bool eval() = 0;
 };
 
 
@@ -105,7 +112,7 @@ public:
      * can be a QString (like an SSID name), numer (battery charge level),
      * but also custom data like GPS locations, etc.
      */
-    virtual void setConfig(const QVariant&) =0; //!< set QVariant (usually read from an InputInterface)
+    virtual void setConfig(const QVariantMap&) =0; //!< set QVariant (usually read from an InputInterface)
     //! execute action
     virtual bool execute() =0;
 };

@@ -1,2 +1,4 @@
 TEMPLATE = subdirs
-SUBDIRS = dummy
+SUBDIRS = dummy \
+	filestat \
+	clock

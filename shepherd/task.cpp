@@ -20,3 +20,11 @@ Task::Task(QObject *parent) :
     QThread(parent)
 {
 }
+
+void Task::run()
+{
+    foreach (ActionInterface* action, actionsequence)
+    {
+        action->execute();
+    }
+}

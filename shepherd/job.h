@@ -36,6 +36,8 @@ public:
 signals:
 
 public slots:
+private slots:
+    void startTask();
 private:
     Condition* condition;
     Task* task;

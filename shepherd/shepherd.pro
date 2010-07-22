@@ -75,3 +75,8 @@ symbian {
     TARGET.EPOCSTACKSIZE = 0x14000
     TARGET.EPOCHEAPSIZE = 0x020000 0x800000
 }
+
+OTHER_FILES += \
+    config/shepherd.conf \
+    config/jobs.conf \
+    config/triggers.conf

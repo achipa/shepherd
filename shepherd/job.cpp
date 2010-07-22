@@ -19,5 +19,11 @@
 Job::Job(QObject *parent, Condition* c, Task* t) :
     QObject(parent), condition(c), task(t)
 {
-    connect(c, SIGNAL(turnedTrue()), t, SLOT(start()));
+    connect(c, SIGNAL(turnedTrue()), SLOT(startTask()));
+}
+
+void Job::startTask()
+{
+    if (task && !task->isRunning())
+        task->start(QThread::LowestPriority);
 }

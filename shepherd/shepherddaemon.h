@@ -51,6 +51,7 @@ public slots:
 private:
     QSettings* mainconfig;
     QSettings* jobconfig;
+    QSettings* triggerconfig;
     QScriptEngine* sengine;
     QVector<QObject*> triggers;
     QVector<QObject*> actions;

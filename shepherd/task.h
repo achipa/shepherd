@@ -32,6 +32,7 @@ class Task : public QThread
     Q_OBJECT
 public:
     explicit Task(QObject *parent = 0);
+    void run();
 private:
     QVector<ActionInterface*> actionsequence;
     int id;

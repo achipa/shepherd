@@ -25,7 +25,7 @@
 #include <QLibraryInfo>
 
 ShepherdDaemon::ShepherdDaemon(QObject *parent)
-    : QObject(parent), mainconfig(0), jobconfig(0), sengine(new QScriptEngine())
+    : QObject(parent), mainconfig(0), jobconfig(0), triggerconfig(0), sengine(new QScriptEngine())
 {
     qDebug() << "Loading plugins";
     loadPlugins();
@@ -50,7 +50,6 @@ void ShepherdDaemon::loadPlugins()
 
     foreach (QString plugintype, QStringList() << "triggers" << "actions")
     {
-        qDebug() << pluginsDir;
         if (!pluginsDir.cd(plugintype))
         {
             pluginsDir.cdUp();
@@ -58,10 +57,10 @@ void ShepherdDaemon::loadPlugins()
         }
 
         foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
-            qDebug() << fileName;
             if (!fileName.endsWith(".so"))
                 continue;
 
+            qDebug() << fileName;
             QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
             QObject *plugin = loader.instance();
             if (plugin) {
@@ -82,9 +81,15 @@ void ShepherdDaemon::loadConfig()
 {
     if (mainconfig) delete mainconfig;
     mainconfig = new QSettings("shepherd", "shepherd");
+    mainconfig->setValue("vacak","ize");
 
     if (jobconfig) delete jobconfig;
     jobconfig = new QSettings("shepherd", "jobs");
+    jobconfig->setValue("vacak","ize");
+
+    if (triggerconfig) delete jobconfig;
+    triggerconfig = new QSettings("shepherd", "triggers");
+    triggerconfig->setValue("vacak","ize");
 
     foreach (QString jobname, jobconfig->childGroups())
     {

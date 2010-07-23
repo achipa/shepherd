@@ -32,11 +32,20 @@ public:
     QString name();
     QString description();
     QPixmap* pixmap();
-    void setValue(const QVariant&);
+    bool configure() { return true; }
+    bool configure(QString cfg) { return true; }
+    const QVariantMap& config() { return qvm; }
+    void setConfig(const QVariantMap&) {}
+    bool eval() { return true; }
+signals:
+    void stateChanged(bool b);
+    void turnedTrue();
+    void turnedFalse();
 public slots:
     void aboutPlugin();
 private:
     QPixmap* pix;
+    QVariantMap qvm;
 };
 //! [0]
 

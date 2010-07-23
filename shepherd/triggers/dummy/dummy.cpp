@@ -43,8 +43,4 @@ void DummyTriggerPlugin::aboutPlugin()
     QMessageBox::about(0, "Teh dummy plugin", "A dummy plugin to demonstrate how to interface to Shepherd");
 }
 
-void DummyTriggerPlugin::setValue(const QVariant &p)
-{
-}
-
 Q_EXPORT_PLUGIN2(dummy, DummyTriggerPlugin)

@@ -49,13 +49,14 @@ public slots:
  */
     void loadConfig();
 private:
-    QSettings* mainconfig;
-    QSettings* jobconfig;
-    QSettings* triggerconfig;
-    QScriptEngine* sengine;
-    QVector<QObject*> triggers;
-    QVector<QObject*> actions;
-    QVector<Job*> jobs;
+    QSettings* mainconfig;                          //! Shepherd daemon config
+    QSettings* jobconfig;                           //! stored config of Job objects
+    QSettings* pluginconfig;                        //! stored config of particular plugin instances (used in jobs)
+    QScriptEngine* sengine;                         //! the script engine used for condition evaluation (shared across the plugins)
+    QMap<QString, TriggerInterface*> triggers;      //! instantiated trigger plugins
+    QMap<QString, ActionInterface*> actions;        //! instantiated action plugins
+    QMap<QString, QString> plugins;                 //! link between plugin names and which .so are they stored in
+    QVector<Job*> jobs;                             //! Job = condition + task
 };
 
 #endif // SHEPHERDDAEMON_H

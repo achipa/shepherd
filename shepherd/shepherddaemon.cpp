@@ -25,7 +25,7 @@
 #include <QLibraryInfo>
 
 ShepherdDaemon::ShepherdDaemon(QObject *parent)
-    : QObject(parent), mainconfig(0), jobconfig(0), triggerconfig(0), sengine(new QScriptEngine())
+    : QObject(parent), mainconfig(0), jobconfig(0), pluginconfig(0), sengine(new QScriptEngine())
 {
     qDebug() << "Loading plugins";
     loadPlugins();
@@ -67,8 +67,10 @@ void ShepherdDaemon::loadPlugins()
     //            populateMenus(plugin);
                 pluginFileNames += fileName;
                 qDebug() << "Loaded " << plugintype << " (" << qobject_cast<InfoInterface *>(plugin)->name() << ")";
+                plugins.insert(qobject_cast<InfoInterface *>(plugin)->id(), pluginsDir.absoluteFilePath(fileName));
     //            connect(this, SIGNAL(about()), plugin, SLOT(aboutPlugin()));
     //            emit about();
+                delete plugin;
             } else {
                 qWarning() << "FAILED " << plugintype << loader.errorString();
             }
@@ -79,21 +81,68 @@ void ShepherdDaemon::loadPlugins()
 
 void ShepherdDaemon::loadConfig()
 {
+    // load main config
+
     if (mainconfig) delete mainconfig;
     mainconfig = new QSettings("shepherd", "shepherd");
-    mainconfig->setValue("vacak","ize");
+//    mainconfig->setValue("vacak","ize");
+
+    // load plugin config
+
+    if (pluginconfig) delete pluginconfig;
+    pluginconfig = new QSettings("shepherd", "plugins");
+//    triggerconfig->setValue("vacak","ize");
+
+    // parse plugin config
+
+    foreach (QString pluginname, pluginconfig->childGroups())
+    {
+        pluginconfig->beginGroup(pluginname);
+
+        // hardcoded config metafields used for loading are prefixed with _, the rest belong to the plugin itself
+
+        QPluginLoader loader(plugins.value(pluginconfig->value("_plugin","").toString()));
+        QObject *plugin = loader.instance();
+        if (pluginconfig->value("_plugintype", "trigger").toString() == "trigger")
+        {
+            triggers.insert(pluginname, qobject_cast<TriggerInterface *>(plugin));
+
+            QVariantMap qvm; //! the config variant map used to set the state/config of a particular instance
+            foreach (QString key, pluginconfig->allKeys())
+            {
+                if (key.startsWith("_"))
+                    continue;
+                qvm.insert(key, pluginconfig->value(key,""));
+            }
+            triggers.value(pluginname)->setConfig(qvm);
+
+            // register trigger to the script engine
+
+            sengine->globalObject().setProperty(pluginname, sengine->newQObject(plugin, QScriptEngine::AutoOwnership));
+        }
+        else
+        {
+            actions.insert(pluginname, qobject_cast<ActionInterface *>(plugin));
+        }
+
+
+        pluginconfig->endGroup();
+    }
 
     if (jobconfig) delete jobconfig;
     jobconfig = new QSettings("shepherd", "jobs");
-    jobconfig->setValue("vacak","ize");
+//  jobconfig->setValue("vacak","ize");
 
-    if (triggerconfig) delete jobconfig;
-    triggerconfig = new QSettings("shepherd", "triggers");
-    triggerconfig->setValue("vacak","ize");
+    // parse job config
 
     foreach (QString jobname, jobconfig->childGroups())
     {
         jobconfig->beginGroup(jobname);
+
+        Condition* c = new Condition();
+        Task* t = new Task();
+        Job* job = new Job(this, c, t);
+        job->setEnabled(jobconfig->value("enabled", true).toBool());
 
         jobconfig->endGroup();
     }

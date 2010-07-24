@@ -29,9 +29,12 @@ class ClockTriggerPlugin : public QObject, public InfoInterface, public InputInt
     Q_INTERFACES(InfoInterface)
     Q_INTERFACES(InputInterface)
     Q_INTERFACES(TriggerInterface)
+//    Q_PROPERTY( const QVariantMap& config READ config WRITE setConfig )
+    Q_ENUMS( e_timeRelation )
 
 public:
     ClockTriggerPlugin();
+    QString id() { return "clock"; }
     QString name();
     QString description();
     QPixmap* pixmap();

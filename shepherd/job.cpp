@@ -17,13 +17,33 @@
 #include "job.h"
 
 Job::Job(QObject *parent, Condition* c, Task* t) :
-    QObject(parent), condition(c), task(t)
+    QObject(parent), conditionp(c), taskp(t)
 {
     connect(c, SIGNAL(turnedTrue()), SLOT(startTask()));
 }
 
 void Job::startTask()
 {
-    if (task && !task->isRunning())
-        task->start(QThread::LowestPriority);
+    if (taskp && !taskp->isRunning())
+        taskp->start(QThread::LowestPriority);
+}
+
+void Job::setEnabled(bool b)
+{
+    enabled = b;
+}
+
+
+void Job::setCondition(Condition* c)
+{
+    if (conditionp)
+        delete conditionp;
+    conditionp = c;
+}
+
+void Job::setTask(Task* t)
+{
+    if (taskp)
+        delete taskp;
+    taskp = t;
 }

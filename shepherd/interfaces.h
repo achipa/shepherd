@@ -30,7 +30,8 @@ class InfoInterface
 {
 public:
     virtual ~InfoInterface() {}
-    virtual QString name() =0;     //!< Plugin name
+    virtual QString id() =0;       //!< Plugin id, a machine friendly name, e.g. 'clock', 'beep'
+    virtual QString name() =0;     //!< Plugin name in human readable format
     virtual QString description() =0; //!< Textual description
     virtual QPixmap* pixmap() =0;  //!< Small 32x32 pixmap (for expression visualization)
     virtual void aboutPlugin() =0; //!< Launch about dialog

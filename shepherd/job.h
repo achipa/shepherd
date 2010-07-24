@@ -30,17 +30,27 @@
 class Job : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY( bool enabled READ isEnabled WRITE setEnabled )
+//    Q_PROPERTY( Condition* condition READ condition WRITE setCondition )
+//    Q_PROPERTY( Task* task READ task WRITE setTask )
+
 public:
     explicit Job(QObject *parent = 0, Condition* c = 0, Task* t = 0);
-
+    bool isEnabled() const { return enabled; }
+    Condition* condition() { return conditionp; }
+    Task* task() const { return taskp; }
 signals:
 
 public slots:
+    void setEnabled(bool);
+    void setCondition(Condition*);
+    void setTask(Task*);
 private slots:
     void startTask();
 private:
-    Condition* condition;
-    Task* task;
+    Condition* conditionp;
+    Task* taskp;
+    bool enabled;
 };
 
 #endif // JOB_H

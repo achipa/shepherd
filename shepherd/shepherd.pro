@@ -79,4 +79,4 @@ symbian {
 OTHER_FILES += \
     config/shepherd.conf \
     config/jobs.conf \
-    config/triggers.conf
+    config/plugins.conf
